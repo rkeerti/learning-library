@@ -9,7 +9,7 @@ Oracle has included DevOps delivery model by leveraging Containers for Docker an
 Kubernetes is a system for running and coordinating containerized applications across clusters. It manages the life cycle of containerized applications and services, thereby providing predictability, scalability, and high availability.
 
 Oracle provides an open source WebLogic Server Kubernetes Operator, which has several key features to assist with deployment and managemenet of various Fusion Middleware products including Oracle Identity Governance (OIG) and Oracle Access Management (OAM).
-Oracle Unified Directory deployment on Kubernetes leverages deployment scripts provided by Oracle for creating Oracle Unified Directory containers using samples or Helm charts provided.
+Oracle Unified Directory deployment on Kubernetes leverages deployment scripts provided by Oracle for creating Oracle Unified Directory containers using samples or Helm charts provided..
 
 With the help of Kubernetes operator and out of the box deployment scripts, you can :-
 
