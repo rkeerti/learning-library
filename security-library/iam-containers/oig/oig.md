@@ -4,7 +4,7 @@
 
 This lab provides information about steps involved in deploying and running OIG domain in a kubernetes cluster with the help of Oracle WebLogic Kubernetes Operator (3.1.0)
 
-Estimated Time: 30 minutes
+*Estimated Time:* 30 minutes
 
 ### About Product/Technology
 Oracle Identity Governance(OIG) is a powerful and flexible enterprise identity management system that automatically manages user's access privileges within enterprise IT resources. The Oracle WebLogic Kubernetes Operator supports deployment of Oracle Identity Governance (OIG). OIG domains are supported using the “domain on a persistent volume” model, where the domain home is located in a persistent volume (PV).
@@ -13,6 +13,14 @@ Oracle Identity Governance(OIG) is a powerful and flexible enterprise identity m
 
 In this lab, you will:
 * Deploy OIG in the kubernetes environment
+
+### Prerequisites
+This lab assumes you have:
+- A Free Tier, Paid or LiveLabs Oracle Cloud account
+- You have completed:
+    - Lab: Prepare Setup (*Free-tier* and *Paid Tenants* only)
+    - Lab: Environment Setup
+    - Lab: Initialize the Environment
 
 ## Task 1: Install and Run the Oracle WebLogic Server Kubernetes Operator Docker Image
 
@@ -91,7 +99,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 	--set "domainNamespaces={}"</copy>
 	```
 
-	![](images/7-helm.png)
+	![Install operator pod](images/7-helm.png)
 
 4. Verify the helm install for the operator
 
@@ -105,7 +113,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 	<copy>kubectl get all -n operator</copy>
 	```
 
-	![](images/8-operator.png)
+	![Operator pod state](images/8-operator.png)
 
 ## Task 4: RCU schema creation
 
@@ -179,7 +187,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 
 	It may take about 5-8 minutes for the RCU schemas to be created.
 
-	![](images/9-rcu.png)
+	![Create RCU schemas](images/9-rcu.png)
 
 7. Exit the helper bash shell
 
@@ -223,7 +231,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 	<copy>kubectl get secret oimcluster-domain-credentials -o yaml -n oimcluster</copy>
 	```
 
-	![](images/10-secret.png)
+	![Domain secret](images/10-secret.png)
 
 4. Create a Kubernetes secret for RCU in the same Kubernetes namespace as the domain, using the create-weblogic-credentials.sh script:
 
@@ -255,7 +263,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 	<copy>kubectl get secret oimcluster-rcu-credentials -o yaml -n oimcluster</copy>
 	```
 
-	![](images/11-secret.png)
+	![RCU secret](images/11-secret.png)
 
 
 ## Task 6: Create a Kubernetes persistent volume and persistent volume claim
@@ -292,7 +300,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 	<copy>./create-pv-pvc.sh -i create-pv-pvc-inputs.yaml -o output_oimcluster</copy>
 	```
 
-	![](images/12-pv.png)
+	![Create persistent volume](images/12-pv.png)
 
 3. Run the following to show the files are created:
 
@@ -316,14 +324,14 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 	<copy>kubectl describe pv oimcluster-oim-pv -n oimcluster</copy>
 	```
 
-	![](images/13-pv.png)
+	![Describe persistent volume](images/13-pv.png)
 
 
 	```
 	<copy>kubectl describe pvc oimcluster-oim-pvc -n oimcluster</copy>
 	```
 
-	![](images/14-pv.png)
+	![Describe persistent volume](images/14-pv.png)
 
 
 ## Task 7: Create OIG Domains
@@ -356,7 +364,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 	<copy>vi create-domain-inputs.yaml</copy>
 	```
 
-	![](images/15-rcu.png)
+	![Update rcuDatabaseURL parameter](images/15-rcu.png)
 
 ## Task 8: Run the create domain script to generate domain related kubernetes artifacts
 
@@ -395,7 +403,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 
 	The introspect-domain-job pod will be displayed first. Run the command again after 5-10 minutes and check to see that the AdminServer and SOA Server are both started. When started they should have STATUS = Running and READY = 1/1
 
-	![](images/16-pods.png)
+	![OIG pods](images/16-pods.png)
 
 4. It will take several minutes before all the pods listed above show. When a pod has a STATUS of 0/1 the pod is started but the OIG server associated with it is currently starting. While the pods are starting you can check the startup status in the pod logs, by running the following commands:
 
@@ -419,7 +427,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 
 	It may take about 6-7 minutes for all the pods to be in the RUNNING state. While the pods are starting you can check the startup status in the pod logs.
 
-	![](images/17-pods.png)
+	![OIG pods](images/17-pods.png)
 
 	```
 	<copy>kubectl logs oimcluster-oim-server1 -n oimcluster</copy>
@@ -447,7 +455,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 
 	Log files are located in /u01/domains/oimclusterdomainpv/logs/oimcluster.
 
-	![](images/18-pods.png)
+	![OIG pods](images/18-pods.png)
 
 
 2. Verify the Domain
@@ -467,7 +475,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 
 	For example:
 
-	![](images/20-pods.png)
+	![OIG pods](images/20-pods.png)
 
 6. Open a browser window to access the weblogic console using the adminserver pod IP using the following URL.
 
@@ -477,7 +485,7 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 
 	where *`<ADMIN_IP>`* is the adminserver pod IP noted in the previous step.
 
-	![](images/21-vnc.png)
+	![Admin console](images/21-vnc.png)
 
 	Login to the console using the following credentials:
 
@@ -495,9 +503,9 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 
 	Click on *Servers* under *Environment* and verify that the SOA and OIM servers are running.
 
-	![](images/22-vnc.png)
+	![Admin console](images/22-vnc.png)
 
-	![](images/29-vnc.png)
+	![Server status](images/29-vnc.png)
 
 
 8. Open a browser tab to access the OIM console using the oim_server1 pod IP using the following URL.
@@ -522,16 +530,16 @@ The Oracle WebLogic Server Kubernetes Operator Docker image must be installed on
 	<copy>Welcom@123</copy>
 	```
 
-	![](images/23-vnc.png)
+	![OIG console](images/23-vnc.png)
 
-	![](images/24-vnc.png)
+	![OIG console](images/24-vnc.png)
 
-	![](images/25-vnc.png)
+	![OIG console](images/25-vnc.png)
 
 
 *Note: OIM and SOA server consoles can also be accessed using their respective cluster IPs*
 
-You may now [proceed to the next lab](#next).
+You may now proceed to the next lab.
 
 ## Learn More
 
@@ -540,4 +548,4 @@ You may now [proceed to the next lab](#next).
 ## Acknowledgements
 * **Author** - Keerti R, Anuj Tripathi, NATD Solution Engineering
 * **Contributors** -  Keerti R, Anuj Tripathi
-* **Last Updated By/Date** - Keerti R, NATD Solution Engineering, December 2021
+* **Last Updated By/Date** - Keerti R, NATD Solution Engineering, January 2022

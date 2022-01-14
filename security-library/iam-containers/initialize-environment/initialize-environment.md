@@ -13,6 +13,13 @@ In this lab, you will:
 * Verify the Oracle Database
 * Create and Initialize Kubernetes nodes
 
+### Prerequisites
+This lab assumes you have:
+- A Free Tier, Paid or LiveLabs Oracle Cloud account
+- You have completed:
+    - Lab: Prepare Setup (*Free-tier* and *Paid Tenants* only)
+    - Lab: Environment Setup
+
 ## Task 1: Environment Verification
 
 1. Open a terminal instance and verify that the OIG Database is running.
@@ -21,7 +28,7 @@ In this lab, you will:
 	<copy>systemctl status oracle-database.service</copy>
 	```
 
-	![](images/2-db.png)
+	![Database system service](images/2-db.png)
 
 	Press Ctrl+C to revert to the terminal.
 
@@ -35,7 +42,7 @@ In this lab, you will:
 	<copy>helm version</copy>
 	```
 
-	![](images/1-versions.png)
+	![Docker and helm version](images/1-versions.png)
 
 3. Verify the OIG, OAM and OUD docker images.
 
@@ -43,7 +50,7 @@ In this lab, you will:
 	<copy>docker images | grep oracle</copy>
 	```
 
-	![](images/3-dockerimages.png)
+	![Docker images](images/3-dockerimages.png)
 
 ## Task 2: Environment Initialization
 
@@ -68,7 +75,7 @@ In this lab, you will:
 	```
 	For Example:
 
-	![](images/4-ip.png)
+	![/etc/hosts file](images/4-ip.png)
 
 3. Deploy and initialize the pod network and make sure that the pod network does not overlap with any of the host networks.
 
@@ -98,7 +105,7 @@ In this lab, you will:
 	<copy>kubectl version --short</copy>
 	```
 
-	![](images/5-kube.png)
+	![Kubectl version](images/5-kube.png)
 
 	```
 	<copy>kubectl taint nodes --all node-role.kubernetes.io/master-</copy>
@@ -122,13 +129,13 @@ In this lab, you will:
 	<copy>kubectl get pods --all-namespaces</copy>
 	```
 
-	![](images/6-pod.png)
+	![Kube-system pods](images/6-pod.png)
 
 
-You may now [proceed to the next lab](#next).
+You may now proceed to the next lab.
 
 
 ## Acknowledgements
 * **Author** - Keerti R, Anuj Tripathi, NATD Solution Engineering
 * **Contributors** -  Keerti R, Anuj Tripathi
-* **Last Updated By/Date** - Keerti R, NATD Solution Engineering, December 2021
+* **Last Updated By/Date** - Keerti R, NATD Solution Engineering, January 2022

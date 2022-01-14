@@ -4,16 +4,26 @@
 
 This lab provides information about steps involved in deploying and running Oracle Unified Directory 12c PS4 (12.2.1.4.0) in a Kubernetes environment.
 
-Estimated Time: 20 minutes
+*Estimated Time:* 20 minutes
 
 ### About <Product/Technology>
 
 Oracle Unified Directory provides a comprehensive Directory Solution for robust Identity Management. Oracle Unified Directory is an all-in-one directory solution with storage, proxy, synchronization and virtualization capabilities. While unifying the approach, it provides all the services required for high-performance Enterprise and carrier-grade environments. Oracle Unified Directory ensures scalability to billions of entries, ease of installation, elastic deployments, enterprise manageability and effective monitoring.
 
-### Objectives (optional)
+### Objectives
 
 In this lab, you will:
 * Create an OUD instance in the kubernetes environment
+
+### Prerequisites
+This lab assumes you have:
+- A Free Tier, Paid or LiveLabs Oracle Cloud account
+- You have completed:
+    - Lab: Prepare Setup (*Free-tier* and *Paid Tenants* only)
+    - Lab: Environment Setup
+    - Lab: Initialize the Environment
+		- Lab: Deploy Oracle Identity Governance(OIG) domain
+		- Lab: Deploy Oracle Access Manager(OAM) domain
 
 ## Task 1: Prepare the environment for Container Creation
 
@@ -23,7 +33,7 @@ In this lab, you will:
 	<copy>kubectl get nodes,pods -n kube-system</copy>
 	```
 
-	![](images/1-kube.png)
+	![Kubernetes cluster](images/1-kube.png)
 
 2. Check the Oracle Unified Directory Image
 
@@ -133,7 +143,7 @@ In this lab, you will:
 	<copy>kubectl --namespace myoudns describe pvc oudpvc</copy>
 	```
 
-	![](images/2-pv.png)
+	![Verify persistent volume](images/2-pv.png)
 
 
 ## Task 2: Directory Server (instanceType=Directory)
@@ -176,7 +186,7 @@ As part of this lab, we'll create a POD (oudpod1) which comprises of a single co
 	<copy>kubectl get pods -n myoudns</copy>
 	```
 
-	![](images/3-pods.png)
+	![OUD pods](images/3-pods.png)
 
 
 	To tail the container logs while it is initialising use the following command:
@@ -203,7 +213,7 @@ As part of this lab, we'll create a POD (oudpod1) which comprises of a single co
 	<copy>./ldapsearch -h localhost -p 1389 -D "cn=Directory Manager" -w Welcom@123 -b "" -s sub "(objectclass=*)" dn</copy>
 	```
 
-	![](images/4-oud.png)
+	![User entries](images/4-oud.png)
 
 
 	```
@@ -217,4 +227,4 @@ As part of this lab, we'll create a POD (oudpod1) which comprises of a single co
 ## Acknowledgements
 * **Author** - Keerti R, Anuj Tripathi, NATD Solution Engineering
 * **Contributors** -  Keerti R, Anuj Tripathi
-* **Last Updated By/Date** - Keerti R, NATD Solution Engineering, December 2021
+* **Last Updated By/Date** - Keerti R, NATD Solution Engineering, January 2022

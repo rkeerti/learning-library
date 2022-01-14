@@ -11,10 +11,19 @@ Oracle Access Management provides innovative new services that complement tradit
 
 OAM domains are supported using the “domain on a persistent volume” model, where the domain home is located in a persistent volume (PV).
 
-### Objectives <optional>
+### Objectives
 
 In this lab, you will:
 * Deploy OAM in the kubernetes environment
+
+### Prerequisites
+This lab assumes you have:
+- A Free Tier, Paid or LiveLabs Oracle Cloud account
+- You have completed:
+    - Lab: Prepare Setup (*Free-tier* and *Paid Tenants* only)
+    - Lab: Environment Setup
+    - Lab: Initialize the Environment
+		- Lab: Deploy Oracle Identity Governance(OIG) domain
 
 
 ## Task 1: Set up the code repository to deploy OAM domains
@@ -61,7 +70,7 @@ The components listed below were already installed during OIG deployment (under 
 	--set serviceAccount=op-sa --set "domainNamespaces={}" --set "javaLoggingLevel=FINE" --wait</copy>
 	```
 
-	![](images/1-helm.png)
+	![Install Operator pod](images/1-helm.png)
 
 
 4. Verify that the operator’s pod and services are running
@@ -70,7 +79,7 @@ The components listed below were already installed during OIG deployment (under 
 	<copy>kubectl get all -n opns</copy>
 	```
 
-	![](images/2-kube.png)
+	![Operator pod](images/2-kube.png)
 
 
 ## Task 3: RCU schema creation
@@ -126,7 +135,7 @@ The components listed below were already installed during OIG deployment (under 
 	-component IAU_APPEND -component IAU_VIEWER -component OPSS -component WLS -component STB -component OAM -f < /tmp/pwd.txt</copy>
 	```
 
-	![](images/3-rcu.png)
+	![Create RCU schema](images/3-rcu.png)
 
 
 7. Exit the helper bash shell
@@ -239,7 +248,7 @@ The components listed below were already installed during OIG deployment (under 
 	<copy>kubectl describe pvc accessinfra-domain-pvc -n accessns</copy>
 	```
 
-	![](images/4-pv.png)
+	![Verify persistent volume](images/4-pv.png)
 
 ## Task 6: Create OAM domain Namespaces
 
@@ -267,7 +276,7 @@ The components listed below were already installed during OIG deployment (under 
 	<copy>vi create-domain-inputs.yaml</copy>
 	```
 
-	![](images/13-rcu.png)
+	![Update rcuDatabaseURL parameter](images/13-rcu.png)
 
 ## Task 7: Run the create domain script to generate domain related kubernetes artifacts
 
@@ -297,7 +306,7 @@ The components listed below were already installed during OIG deployment (under 
 	<copy>kubectl get pods -n accessns</copy>
 	```
 
-	![](images/6-pods.png)
+	![OAM pods](images/6-pods.png)
 
 
 2. It will take around 10-15 minutes before all the services listed above show. When a pod has a STATUS of 0/1 the pod is started but the OAM server associated with it is currently starting. While the pods are starting you can check the startup status in the pod logs, by running the following command:
@@ -337,7 +346,7 @@ The components listed below were already installed during OIG deployment (under 
 	<copy>kubectl get all,domains -n accessns</copy>
 	```
 
-	![](images/7-pods.png)
+	![OAM pods](images/7-pods.png)
 
 
 5. Verify the Pods. Copy the pod IP address of the adminserver
@@ -348,7 +357,7 @@ The components listed below were already installed during OIG deployment (under 
 
 	For example:
 
-	![](images/12-pods.png)
+	![OAM pods](images/12-pods.png)
 
 7. Open a browser window to access the weblogic console using the adminserver pod IP using the following URL.
 
@@ -358,7 +367,7 @@ The components listed below were already installed during OIG deployment (under 
 
 	where *`<ADMIN_IP>`* is the adminserver pod IP
 
-	![](images/8-vnc.png)
+	![Admin console](images/8-vnc.png)
 
 	Login to the console using the following credentials:
 
@@ -376,7 +385,7 @@ The components listed below were already installed during OIG deployment (under 
 
 	Click and *Servers* under *Environment* and verify that OAM server is running.
 
-	![](images/11-vnc.png)
+	![Admin console](images/11-vnc.png)
 
 
 *Note: The OAM Managed server may be displayed in Warning state due to limited heap size. The heap size can be extended by updating the generated domain yaml files.*
@@ -390,7 +399,7 @@ The components listed below were already installed during OIG deployment (under 
 
 	where *`<ADMIN_IP>`* is the adminserver pod IP
 
-	![](images/9-vnc.png)
+	![OAM console](images/9-vnc.png)
 
 	Login to the console using the following credentials:
 
@@ -406,10 +415,10 @@ The components listed below were already installed during OIG deployment (under 
 	<copy>Welcom@123</copy>
 	```
 
-	![](images/10-vnc.png)
+	![OAM console](images/10-vnc.png)
 
 
-You may now [proceed to the next lab](#next).
+You may now proceed to the next lab.
 
 ## Learn More
 
@@ -418,4 +427,4 @@ You may now [proceed to the next lab](#next).
 ## Acknowledgements
 * **Author** - Keerti R, Brijith TG, Anuj Tripathi, NATD Solution Engineering
 * **Contributors** -  Keerti R, Brijith TG, Anuj Tripathi
-* **Last Updated By/Date** - Keerti R, NATD Solution Engineering, May 2021
+* **Last Updated By/Date** - Keerti R, NATD Solution Engineering, January 2022
